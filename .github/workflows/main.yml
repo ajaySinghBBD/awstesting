@@ -31,34 +31,34 @@ jobs:
       - name: Run Tests
         run: mvn test  
 
-  deploy:
-    runs-on: ubuntu-latest
+  # deploy:
+  #   runs-on: ubuntu-latest
 
-    needs: build
+  #   needs: build
 
-    steps:
-      - name: Install SSH key for deployment
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+  #   steps:
+  #     - name: Install SSH key for deployment
+  #       uses: webfactory/ssh-agent@v0.5.3
+  #       with:
+  #         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Deploy to EC2
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }} # Replace with your EC2 instance IP address or DNS
-          username: ${{ secrets.EC2_USERNAME }} # Replace with your EC2 instance username
-          key: ${{ secrets.EC2_SSH_KEY }} # Replace with your SSH private key for accessing the EC2 instance
-          port: ${{ secrets.EC2_PORT }} # Replace with the SSH port of your EC2 instance (usually 22)
-          script: |
-            cd  src/DemoApplication.java # Replace with the path to your application source directory
-            git pull origin main # Pull the latest changes from your Git repository
-            mvn clean package # Build the application with Maven
+  #     - name: Deploy to EC2
+  #       uses: appleboy/ssh-action@master
+  #       with:
+  #         host: ${{ secrets.EC2_HOST }} # Replace with your EC2 instance IP address or DNS
+  #         username: ${{ secrets.EC2_USERNAME }} # Replace with your EC2 instance username
+  #         key: ${{ secrets.EC2_SSH_KEY }} # Replace with your SSH private key for accessing the EC2 instance
+  #         port: ${{ secrets.EC2_PORT }} # Replace with the SSH port of your EC2 instance (usually 22)
+  #         script: |
+  #           cd  src/DemoApplication.java # Replace with the path to your application source directory
+  #           git pull origin main # Pull the latest changes from your Git repository
+  #           mvn clean package # Build the application with Maven
             
-            # Stop the running application service if necessary
-            # systemctl stop your-application.service 
+  #           # Stop the running application service if necessary
+  #           # systemctl stop your-application.service 
 
-            # Copy the newly built JAR file to the target directory
-            cp target/your-application.jar /path/to/your/target/application/your-application.jar
+  #           # Copy the newly built JAR file to the target directory
+  #           cp target/your-application.jar /path/to/your/target/application/your-application.jar
 
-            # Start the application service if necessary
-            # systemctl start your-application.service
+  #           # Start the application service if necessary
+  #           # systemctl start your-application.service
