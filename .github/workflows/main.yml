@@ -26,7 +26,7 @@ jobs:
           server-password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate JAR file
-        run: mvn -B package
+        run: mvn package
 
       - name: Run Tests
         run: mvn test  
