@@ -21,6 +21,9 @@ jobs:
         with:
           java-version: '21' # Ensure it's a string
           distribution: 'adopt'
+          server-id: github
+          server-username: ${{ github.actor }}
+          server-password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate JAR file
         run: mvn -B clean package
